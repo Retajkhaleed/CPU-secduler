@@ -63,16 +63,16 @@ public class CPUSchedule {
     // خوارزمية FCFS
     public static void fcfs(List<Process> input) {
         for (int i = 0; i < input.size() - 1; i++) {//lop for sort process by the Arrival Time using "Selection sort"
-        int minIndex = i;
+        int min = i;
         for (int j = i + 1; j < input.size(); j++) {
-            if (input.get(j).at < input.get(minIndex).at) {
-                minIndex = j;
+            if (input.get(j).at < input.get(min).at) {
+                min = j;
             }
         }
         if (minIndex != i) {
             Process temp = input.get(i);
-            input.set(i, input.get(minIndex));
-            input.set(minIndex, temp);
+            input.set(i, input.get(min));
+            input.set(min, temp);
         }
     }
 
