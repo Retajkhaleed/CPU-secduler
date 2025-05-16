@@ -96,7 +96,7 @@ public class CPUSchedule {
             p.wt = p.tat - p.bt;              // calculate waiting time
         }
 
-        printOutput("FCFS",gantt,input);
+        printOutput("FCFS",gantt,processes);
     }
 }
     // خوارزمية SJF
