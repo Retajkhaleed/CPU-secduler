@@ -157,6 +157,51 @@ printOutput("SJF", gantt, completed);
 
     // خوارزمية SRTF
     public static void srtf(List<Process> input) {
+        List<Process> processes = new ArrayList<>();//list of processes 
+        for (Process p : input) processes.add(new Process(p.pid, p.bt, p.at));//loop to create copy of each process 
+
+        int time = 0, complete = 0;
+        int[] remaining = new int[n];
+        for (int i = 0; i < n; i++) remaining[i] = processes.get(i).bt;//loop to copy each process into the remaining array
+
+        List<String> gantt = new ArrayList<>();
+        Process[] result = new Process[n];
+
+        while (complete < n) {://completed process 
+            int idx = -1;
+            int minBt = Integer.MAX_VALUE;
+
+            for (int i = 0; i < n; i++) {//the one with shortest remaining time
+                if (processes.get(i).at <= time && remaining[i] > 0 && remaining[i] < minBt) {
+                    idx = i;
+                    minBt = remaining[i];
+                }
+            }
+
+            if (idx == -1) {/://if no process ready make the cpu idle and increment time
+                gantt.add("Idle");
+                time++;
+                continue;
+            }
+
+            remaining[idx]--;//decrease the remaining time 
+            gantt.add(processes.get(idx).pid);//add to thr grantt chart
+
+            if (remaining[idx] == 0) {
+                complete++;
+                int end_time = time + 1;
+                int tat = end_time - processes.get(idx).at;
+                int wt = tat - processes.get(idx).bt;
+                Process p = processes.get(idx);
+                p.tat = tat;
+                p.wt = wt;
+                result[idx] = p;
+            }
+
+            time++;
+        }
+
+        printOutput("SRTF", gantt, Arrays.asList(result));//print results 
        }
 
     // خوارزمية Round Robin
