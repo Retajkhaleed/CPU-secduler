@@ -124,7 +124,7 @@ public class CPUSchedule {
         Process[] result = new Process[n];
         int done = 0;
 
-        while (done < n) {//// Add arrived processes to the queue
+        while (done < n) {//Add arrived processes to the queue
             for (int i = 0; i < n; i++) {
                 if (pList.get(i).at <= time && !arrived[i]) {
                     queue.add(i);
@@ -132,7 +132,7 @@ public class CPUSchedule {
                 }
             }
 
-            if (queue.isEmpty()) {//// CPU is idlle increment time 
+            if (queue.isEmpty()) {//CPU is idlle increment time 
                 gantt.add("Idle");
                 time++;
                 continue;
