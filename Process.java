@@ -110,11 +110,11 @@ public class CPUSchedule {
 
     // خوارزمية Round Robin
     public static void roundRobin(List<Process> input, int quantum) {
-        List<Process> pList = new ArrayList<>();
-        for (Process p : input) pList.add(new Process(p.pid, p.bt, p.at));
+        List<Process> pList = new ArrayList<>();//list of processes 
+        for (Process p : input) pList.add(new Process(p.pid, p.bt, p.at));//loop to create copy of each process 
 
         int[] remBt = new int[n];
-        for (int i = 0; i < n; i++) remBt[i] = pList.get(i).bt;
+        for (int i = 0; i < n; i++) remBt[i] = pList.get(i).bt;//copy burst time from list to array
 
         boolean[] arrived = new boolean[n];
         boolean[] completed = new boolean[n];
@@ -124,7 +124,7 @@ public class CPUSchedule {
         Process[] result = new Process[n];
         int done = 0;
 
-        while (done < n) {
+        while (done < n) {//// Add arrived processes to the queue
             for (int i = 0; i < n; i++) {
                 if (pList.get(i).at <= time && !arrived[i]) {
                     queue.add(i);
@@ -132,15 +132,16 @@ public class CPUSchedule {
                 }
             }
 
-            if (queue.isEmpty()) {
+            if (queue.isEmpty()) {//// CPU is idlle increment time 
                 gantt.add("Idle");
                 time++;
                 continue;
             }
-
+           //Get next process from queue and calculate execution time
             int idx = queue.remove(0);
             int execTime = Math.min(quantum, remBt[idx]);
-
+            
+            //Execute the current process and add new arrived processes to the queue
             for (int i = 0; i < execTime; i++) {
                 gantt.add(pList.get(idx).pid);
                 time++;
@@ -153,7 +154,7 @@ public class CPUSchedule {
                     }
                 }
             }
-
+            //if process done calculate time else add back to queue
             if (remBt[idx] > 0) {
                 queue.add(idx);
             } else if (!completed[idx]) {
