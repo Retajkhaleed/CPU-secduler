@@ -69,7 +69,7 @@ public class CPUSchedule {
                 min = j;
             }
         }
-        if (minIndex != i) {
+        if (min != i) {
             Process temp = input.get(i);
             input.set(i, input.get(min));
             input.set(min, temp);
