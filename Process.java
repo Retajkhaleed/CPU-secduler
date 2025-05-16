@@ -62,26 +62,29 @@ public class CPUSchedule {
 
     // خوارزمية FCFS
     public static void fcfs(List<Process> input) {
-        for (int i = 0; i < input.size() - 1; i++) {//lop for sort process by the Arrival Time using "Selection sort"
+    List<Process> processes = new ArrayList<>();
+    for (Process p : input) {
+        processes.add(new Process(p.pid, p.bt, p.at));
+    }
+        
+        for (int i = 0; i < processes.size() - 1; i++) {//lop for sort process by the Arrival Time using "Selection sort"
         int min = i;
-        for (int j = i + 1; j < input.size(); j++) {
-            if (input.get(j).at < input.get(min).at) {
+        for (int j = i + 1; j < processes.size(); j++) {
+            if (processes.get(j).at < processes.get(min).at) {
                 min = j;
             }
         }
         if (min != i) {
-            Process temp = input.get(i);
-            input.set(i, input.get(min));
-            input.set(min, temp);
+            Process temp = processes.get(i);
+            processes.set(i, processes.get(min));
+            processes.set(min, temp);
         }
     }
 
         int time = 0;             // to track current time
-        double totalTAT = 0, totalWT = 0; // for calculating averages
          List<String> gantt = new ArrayList<>();
-
         // Compute TAT and WT for each process
-        for (Process p : input) {
+        for (Process p : processes) {
             if (time < p.at) {
                 time = p.at;  // wait if cpu is idle
             }
@@ -91,9 +94,6 @@ public class CPUSchedule {
             time += p.bt;              // update  time
             p.tat = time - p.at;       // calculate turnaround time
             p.wt = p.tat - p.bt;              // calculate waiting time
-
-            totalTAT += p.tat;                // total turnaround time
-            totalWT += p.wt;                  // total waiting time
         }
 
         printOutput("FCFS",gantt,input);
