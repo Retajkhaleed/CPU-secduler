@@ -103,15 +103,12 @@ public class CPUSchedule {
     // خوارزمية SJF
    public static void sjf(List<Process> input) {
 
-       
     // making a copy to avoid modifying it
     List<Process> processes = new ArrayList<>();
     for (Process p : input) {
         processes.add(new Process(p.pid, p.bt, p.at));
     }
 
-
-       
     // making lists for completed processes and Gantt chart
     List<Process> completed = new ArrayList<>();
     List<String> gantt = new ArrayList<>();
@@ -126,10 +123,7 @@ for (Process p : processes) {
 if (!completed.contains(p) && p.at <= time) {
 if (shortest == null || p.bt < shortest.bt) {
 shortest = p;
-                }}}
-      
-
-        
+                }}}    
 
 // if thear is no process that has arrived CPU remains idle for one unit of time
 if (shortest == null) {
@@ -147,15 +141,12 @@ shortest.tat = shortest.wt + shortest.bt;    //turnaround time
 completed.add(shortest);                     // marking the process as completed
     }
 
-
        
-
 // Printing the results
 printOutput("SJF", gantt, completed);
 }
        
     
-
     // خوارزمية SRTF
     public static void srtf(List<Process> input) {
         List<Process> processes = new ArrayList<>();//list of processes 
@@ -264,7 +255,6 @@ printOutput("SJF", gantt, completed);
                 done++;
             }
         }
-
         printOutput("Round Robin", gantt, Arrays.asList(result));
     }
 }
