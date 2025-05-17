@@ -86,7 +86,8 @@ public class CPUSchedule {
         // Compute TAT and WT for each process
         for (Process p : processes) {
             if (time < p.at) {
-                time = p.at;  // wait if cpu is idle
+                gantt.add("Idle");
+                time ++;  // wait if cpu is idle
             }
 
             gantt.add(p.pid); // build gantt chart
