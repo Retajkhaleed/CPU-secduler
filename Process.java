@@ -167,7 +167,7 @@ printOutput("SJF", gantt, completed);
         List<String> gantt = new ArrayList<>();
         Process[] result = new Process[n];
 
-        while (complete < n) {://completed process 
+        while (complete < n) {//completed process 
             int idx = -1;
             int minBt = Integer.MAX_VALUE;
 
@@ -178,7 +178,7 @@ printOutput("SJF", gantt, completed);
                 }
             }
 
-            if (idx == -1) {/://if no process ready make the cpu idle and increment time
+            if (idx == -1) {//if no process ready make the cpu idle and increment time
                 gantt.add("Idle");
                 time++;
                 continue;
