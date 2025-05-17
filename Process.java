@@ -98,7 +98,7 @@ public class CPUSchedule {
 
         printOutput("FCFS",gantt,processes);
     }
-}
+    
     // خوارزمية SJF
    public static void sjf(List<Process> input) {
 
