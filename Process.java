@@ -8,32 +8,32 @@ int tat;        // Turnaround Time
 int wt;         // Waiting Time
  int remaining; //الوقت المتبقي
 
-Process(String pid, int bt, int at) {
+Process(String pid, int bt, int at) {//constructor for process class 
 this.pid = pid;
 this.bt = bt;
 this.at = at;
 this.remaining = bt;
 }}
 
-public class CPUSchedule {
+public class CPUSchedule {//main class for algorithms 
 
 static Scanner sc = new Scanner(System.in);
 static int n;
 
  public static void main(String[] args) {
-List<Process> processes = getInput();
-roundRobin(processes, 2);           
-fcfs(processes);                       
-sjf(processes);                        
-srtf(processes); }
+List<Process> processes = getInput();//user input
+roundRobin(processes, 2);           //call round robin with 2 quantim time
+fcfs(processes);                   //call fcfs    
+sjf(processes);                     //call sjf
+srtf(processes); } //call srtf
     
-
+//to get input from user and return list of processes 
  public static List<Process> getInput() {
 System.out.print("Enter number of processes: ");
 n = sc.nextInt();
 List<Process> processes = new ArrayList<>();
 
-for (int i = 0; i < n; i++) {
+for (int i = 0; i < n; i++) {//loop to get brust time and arrival time 
     
 System.out.print("Enter Burst Time for P" + (i + 1) + ": ");
 int bt = sc.nextInt();
@@ -44,7 +44,7 @@ processes.add(new Process("P" + (i + 1), bt, at));}
 }
 
     
-
+//to print the output of the algorithms
 public static void printOutput(String name, List<String> gantt, List<Process> results) {
     
 System.out.println("\n== " + name + " ==");
@@ -52,13 +52,13 @@ System.out.println("Gantt Chart: " + String.join(" | ", gantt));
 System.out.println("Process\tBT\tAT\tTAT\tWT");
 
 double totalTAT = 0, totalWT = 0;
-for (Process p : results) {
+for (Process p : results) {//loop each process to print details 
  System.out.printf("%-5s\t%d\t%d\t%d\t%d\n", p.pid, p.bt, p.at, p.tat, p.wt);
 totalTAT += p.tat;
 totalWT  += p.wt;
 }
-    
- System.out.printf("Avg TAT = %.2f\n", totalTAT / results.size());
+//print avg TAT and WT
+System.out.printf("Avg TAT = %.2f\n", totalTAT / results.size());
 System.out.printf("Avg WT  = %.2f\n", totalWT / results.size());
 System.out.println("*********************************");
 }
